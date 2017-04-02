@@ -23,50 +23,50 @@ function generateForm(){
   var textNode2 = document.createTextNode(items);
   itemDisplay.appendChild(textNode2);
 
-  document.getElementById("container").appendChild(echoDisplay);
-  document.getElementById("container").appendChild(itemDisplay);
+  document.getElementById("restaurantForm").appendChild(echoDisplay);
+  document.getElementById("restaurantForm").appendChild(itemDisplay);
 
   for (var i = 0; i < echos; i++){
     var brr = document.createElement("br");
-    document.getElementById("container").appendChild(brr);
+    document.getElementById("restaurantForm").appendChild(brr);
 
     var echobox = document.createElement("input");
     echobox.setAttribute("type", "text");
     echobox.setAttribute("placeholder", "Echo ID");
     echobox.setAttribute("id", "echo"+i);
-    document.getElementById("container").appendChild(echobox);
+    document.getElementById("restaurantForm").appendChild(echobox);
   }
 
   var brr = document.createElement("br");
-  document.getElementById("container").appendChild(brr);
+  document.getElementById("restaurantForm").appendChild(brr);
   var brr = document.createElement("br");
-  document.getElementById("container").appendChild(brr);
+  document.getElementById("restaurantForm").appendChild(brr);
 
   for (var j = 0; j < items; j++){
     var itembox = document.createElement("input");
     itembox.setAttribute("type", "text");
     itembox.setAttribute("placeholder", "Item Name");
-    itembox.setAttribute("id", "itemName"+i);
-    document.getElementById("container").appendChild(itembox);
+    itembox.setAttribute("id", "itemName"+j);
+    document.getElementById("restaurantForm").appendChild(itembox);
 
     var costbox = document.createElement("input");
     costbox.setAttribute("type", "text");
     costbox.setAttribute("placeholder", "Item Cost");
-    costbox.setAttribute("id", "itemCost"+i);
-    document.getElementById("container").appendChild(costbox);
+    costbox.setAttribute("id", "itemCost"+j);
+    document.getElementById("restaurantForm").appendChild(costbox);
 
     var brr = document.createElement("br");
-    document.getElementById("container").appendChild(brr);
+    document.getElementById("restaurantForm").appendChild(brr);
   }
 
   var brr = document.createElement("br");
-  document.getElementById("container").appendChild(brr);
+  document.getElementById("restaurantForm").appendChild(brr);
 
   var submit = document.createElement("button");
   submit.setAttribute("id", "submitButton");
   submit.setAttribute("onclick", "createRestaurant()");
   submit.innerHTML = "Submit";
-  document.getElementById("container").appendChild(submit);
+  document.getElementById("restaurantForm").appendChild(submit);
 }
 
 function createRestaurant(){
@@ -98,7 +98,17 @@ function createRestaurant(){
     object.items.push({"name": itemName, "cost": itemCost});
   }
   var dataObj = JSON.stringify(object);
-  var url = "http://localhost:4567/restaurant";
+  var url = "http://08fd0bc4.ngrok.io/restaurant";
   console.log(jQuery.post(url, dataObj));
+}
+
+function getNessieData(){
+  var url = "http://08fd0bc4.ngrok.io/restaurant";
+  jQuery.get(url, function(data, status, xhr){
+    console.log(data);
+    var node = document.createElement("p");
+    node.innerHTML = "$" + data;
+    document.getElementById("nessieForm").appendChild(node);
+  });
 
 }
